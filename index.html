@@ -1,69 +1,24 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script>
-    async function displayData(ip){
-        const playersElement = document.getElementById("players");
-        playersElement.innerHTML = "";
-
-        try
-        {    
-            const status = document.getElementById("status");
-            status.src = `https://api.mcstatus.io/v2/widget/java/${ip}`;
-
-            const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
-            const body = await res.json();
-
-
-            for(const player of body.players.list){
-                const imgElement = document.createElement("img");
-                imgElement.src = `https://api.mineatar.io/head/${player.uuid}`
-                const nameElement = document.createElement("p");
-                nameElement.innerText = player.name_clean;
-                console.log(player)
-
-                playersElement.appendChild(imgElement)
-                playersElement.appendChild(nameElement)
-            }
-        }catch{
-            
-        }
-    }
-
-    window.addEventListener('DOMContentLoaded', async function() {
-    
-        const ipInputElement = document.getElementById("ipInput");
-        ipInputElement.value = "199.115.73.219:9130";
-
-        displayData(ipInputElement.value)
-
-        ipInputElement.addEventListener("input", (args) => {
-            displayData(ipInputElement.value)
-        })
-    });
-    </script>
-    <style>
-        body {
-            background-color: #232323;
-            color: white;
-            font-family: Arial, Helvetica, sans-serif;
-
-        }
-
-        h1 {
-            text-align: center;
-        }
-    </style>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + TS</title>
+    <link href="/src/style.css" rel="stylesheet">
+  </head>
+  <body>
     <h1>Minecraft Server Status overview</h1>
     <input id="ipInput">
-    <img id="status">
+    <img id="status" class="w-96">
+    <p>Players:</p>
     <div id="players">
-
+        <div class="playerEntry template">
+            <img src="https://api.mineatar.io/head/89ef6f95-63cf-4283-9d36-1e1bceb52425">
+            <p>PLACEHOLDER NAME</p>
+        </div>
     </div>
-</body>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
 </html>
