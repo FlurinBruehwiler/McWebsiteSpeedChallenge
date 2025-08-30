@@ -1,7 +1,7 @@
 import './style.css';
 
 async function displayData(ip: string) {
-  const playersElement = document.querySelector("#players")!;
+  const playersElement = document.querySelector("#players-list")!;
   playersElement.innerHTML = "";
 
   try {
@@ -18,8 +18,21 @@ async function displayData(ip: string) {
       GetChildWithSelector<HTMLImageElement>(element, "img").src = `https://api.mineatar.io/head/${player.uuid}`;
       GetChildWithSelector<HTMLParagraphElement>(element, "p").innerText = player.name_clean;
     }
+
+    ShowElementWithSelector(".NoPlayersLabel", body.players.list.length != 0)
   } catch {
 
+  }
+}
+
+function ShowElementWithSelector(selector: string, visible: boolean) {
+  const element = document.querySelector(selector) as HTMLElement;
+  if (element) {
+    if (visible) {
+      element.style.visibility = "hidden";
+    } else {
+      element.style.visibility = "visible";
+    }
   }
 }
 
